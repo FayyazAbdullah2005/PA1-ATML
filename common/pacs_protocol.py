@@ -6,9 +6,9 @@ from torchvision.datasets import ImageFolder
 from sklearn.model_selection import train_test_split
 
 from common.seed import set_seed, SEED
-from shared.pacs import get_pacs_transforms, SubsetImageFolder
+from common.pacs import get_pacs_transforms, SubsetImageFolder
 
-def get_pacs_datasets(pacs_root='data/PACS', split_file='shared/splits/pacs_sketch_seed6304.json', seed=SEED):
+def get_pacs_datasets(pacs_root='data/PACS', split_file='common/splits/pacs_sketch_seed6304.json', seed=SEED):
     """
     Sets up the official PACS datasets for Tasks 2 and 3:
     - Photo, Art Painting, Cartoon: Stratified 80/20 train/validation splits (seed 6304)

@@ -31,7 +31,7 @@ def run_experiment():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Hardware Device: {device} ({torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU'})")
     
-    os.makedirs('results', exist_ok=True)
+    os.makedirs('task1/results', exist_ok=True)
     os.makedirs('figures/task1', exist_ok=True)
     os.makedirs('cache/task1', exist_ok=True)
     
@@ -372,9 +372,9 @@ def run_experiment():
         'cosine_stability': cosine_stability
     }
     
-    with open('results/task1_results.json', 'w') as f:
+    with open('task1/results/task1_results.json', 'w') as f:
         json.dump(all_results, f, indent=2)
-    print("\nAll numeric results successfully saved to results/task1_results.json!")
+    print("\nAll numeric results successfully saved to task1/results/task1_results.json!")
     print("=" * 75)
     print("TASK 1 COMPLETED SUCCESSFULLY")
     print("=" * 75)

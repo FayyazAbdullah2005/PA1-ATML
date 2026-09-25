@@ -10,8 +10,8 @@ from torch.utils.data import DataLoader
 
 from common.seed import set_seed, SEED
 from common.logging import get_logger
-from shared.pacs import PACS_CLASSES
-from shared.pacs_protocol import get_pacs_datasets, BalancedDomainBatchSampler
+from common.pacs import PACS_CLASSES
+from common.pacs_protocol import get_pacs_datasets, BalancedDomainBatchSampler
 from task2.models.classifier_head import PACSResNet18
 from task2.models.domain_discriminator import DomainDiscriminator, get_grl_alpha
 from task2.methods.source_only import SourceOnlyMethod

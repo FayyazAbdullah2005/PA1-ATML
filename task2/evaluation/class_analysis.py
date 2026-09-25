@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.metrics import confusion_matrix
-from shared.pacs import PACS_CLASSES
+from common.pacs import PACS_CLASSES
 
 def analyze_per_class_transfer(baseline_per_class, method_per_class, class_names=PACS_CLASSES):
     """

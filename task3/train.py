@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 
-from shared.pacs_protocol import BalancedDomainBatchSampler
+from common.pacs_protocol import BalancedDomainBatchSampler
 from task3.models.classifier_head import PACSResNet18
 from task3.methods.erm import ERMMethod
 from task3.methods.dan_dg import DANDGMethod

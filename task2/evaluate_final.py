@@ -9,8 +9,8 @@ from torch.utils.data import DataLoader
 from common.seed import set_seed, SEED
 from common.logging import get_logger
 from common.plotting import plot_training_curves, plot_confusion_heatmap
-from shared.pacs import PACS_CLASSES
-from shared.pacs_protocol import get_pacs_datasets
+from common.pacs import PACS_CLASSES
+from common.pacs_protocol import get_pacs_datasets
 from task2.models.classifier_head import PACSResNet18
 from task2.evaluation.metrics import evaluate_model
 from task2.evaluation.domain_separability import compute_domain_separability
@@ -25,7 +25,7 @@ def evaluate_all_adaptation_models(
         'DANN': 'checkpoints/pacs_dann.pt',
         'CDAN': 'checkpoints/pacs_cdan.pt'
     },
-    results_path='results/task2_results.json',
+    results_path='task2/results/task2_results.json',
     figures_dir='figures/task2',
     seed=SEED,
     device=None

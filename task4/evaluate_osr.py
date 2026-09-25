@@ -25,7 +25,7 @@ def evaluate_all_osr_models(
         'gcsc': 'checkpoints/task4_gcsc.pt',
         'proser': 'checkpoints/task4_proser.pt'
     },
-    results_path='results/task4_results.json',
+    results_path='task4/results/task4_results.json',
     seed=SEED,
     device=None
 ):

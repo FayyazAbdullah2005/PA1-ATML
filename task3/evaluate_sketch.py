@@ -8,8 +8,8 @@ from torch.utils.data import DataLoader
 
 from common.seed import set_seed, SEED
 from common.logging import get_logger
-from shared.pacs import PACS_CLASSES
-from shared.pacs_protocol import get_pacs_datasets
+from common.pacs import PACS_CLASSES
+from common.pacs_protocol import get_pacs_datasets
 from task3.models.classifier_head import PACSResNet18
 from task2.evaluation.metrics import evaluate_model
 from task3.evaluation.source_domain_separability import compute_source_domain_separability
@@ -25,7 +25,7 @@ def evaluate_all_dg_models(
         'SAM (rho=0.01)': 'checkpoints/task3_SAM_rho0.01.pt',
         'SAM (rho=0.1)': 'checkpoints/task3_SAM_rho0.1.pt',
     },
-    results_path='results/task3_main_results.json',
+    results_path='task3/results/task3_main_results.json',
     seed=SEED,
     device=None
 ):

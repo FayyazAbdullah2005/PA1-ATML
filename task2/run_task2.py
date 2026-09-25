@@ -19,7 +19,7 @@ def main():
     
     os.makedirs('checkpoints', exist_ok=True)
     os.makedirs('figures/task2', exist_ok=True)
-    os.makedirs('results', exist_ok=True)
+    os.makedirs('task2/results', exist_ok=True)
     os.makedirs('cache', exist_ok=True)
     
     # 1. Base histories for Source-only and DAN from existing stable runs
@@ -110,7 +110,7 @@ def main():
             'DANN': 'checkpoints/pacs_dann.pt',
             'CDAN': 'checkpoints/pacs_cdan.pt'
         },
-        results_path='results/task2_results.json',
+        results_path='task2/results/task2_results.json',
         figures_dir='figures/task2',
         seed=SEED,
         device=device

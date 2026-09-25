@@ -5,87 +5,98 @@
 **Email:** 28100069@lums.edu.pk  
 **Institution:** Lahore University of Management Sciences (LUMS)  
 **Repository:** https://github.com/FayyazAbdullah2005/PA1-ATML  
-**Report Document:** report_skeleton.tex (NeurIPS 2026 format)
+**Report Document:** report/report.tex (NeurIPS 2026 format)
 
 ---
 
 ## Overview
 
-This repository contains the code, configuration files, evaluation scripts, results, and LaTeX report for Programming Assignment 1.
+This repository contains the code, configuration files, evaluation scripts, machine-readable results, and LaTeX report for Programming Assignment 1.
 
-The project covers four experimental tasks:
+The project investigates representation learning beyond standard IID and closed-set assumptions across four experimental settings:
 1. **Task 1: Inductive Biases and Feature Representations** - Evaluates ResNet-50, ViT-B/16, and OpenCLIP ViT-B/32 on STL-10 under color interventions (grayscale, hue rotation), AdaIN cue conflicts, spatial translations, and patch shuffling.
 2. **Task 2: Unsupervised Domain Adaptation (UDA)** - Evaluates Source-only ERM, DAN (MMD), DANN (Adversarial), and CDAN (Conditional Adversarial) on PACS with Sketch as the unlabeled target domain.
-3. **Task 3: Domain Generalization (DG)** - Evaluates unaligned ERM, Pairwise Source Alignment (DAN-DG), and Parameter-Space Stability (SAM) on PACS with Sketch strictly held-out as an unseen test domain.
-4. **Task 4: Open-Set Recognition (OSR)** - Evaluates post-hoc novelty scoring functions (MSP, MLS, Energy, Mahalanobis) and trained-model methods (Vanilla ResNet-18, GCSC, PROSER) on CIFAR-10 vs CIFAR-100 Near and Far unknowns.
+3. **Task 3: Domain Generalization (DG)** - Evaluates unaligned ERM, Pairwise Source Alignment (DAN-DG), and Parameter-Space Stability (SAM) on PACS with Sketch held out as an unseen test domain.
+4. **Task 4: Open-Set Recognition (OSR)** - Evaluates post-hoc novelty scoring functions (MSP, MLS, Energy, Mahalanobis) and trained-model methods (Vanilla ResNet-18, GCSC, PROSER) on CIFAR-10 vs CIFAR-100 Near and Far semantic unknowns.
 
 ---
 
 ## Repository Structure
 
 ```
-PA1-ATML/
+pa1-beyond-iid/
 ├── README.md                          # Repository documentation and attribution
-├── requirements.txt                   # Python dependencies
-├── .gitignore                         # Excludes raw data and checkpoints
-├── report_skeleton.tex                # NeurIPS report source
-├── neurips_2026.sty                   # NeurIPS LaTeX stylesheet
+├── requirements.txt                   # Pinned Python dependencies
+├── .gitignore                         # Excludes raw data, caches, and checkpoints
 │
-├── common/                            # Shared utilities
-│   ├── seed.py                        # Seed definition (SEED = 6304)
-│   ├── logging.py                     # Logger
-│   └── plotting.py                    # Plotting utilities
+├── common/                            # Shared utilities across tasks
+│   ├── seed.py                        # Deterministic seed setting (SEED = 6304)
+│   ├── logging.py                     # Logger initialization
+│   ├── plotting.py                    # Standardized plotting utilities
+│   ├── metrics.py                     # Accuracy and Macro-F1 computation
+│   ├── pacs.py                        # PACS class names and dataset transforms
+│   ├── pacs_protocol.py               # Shared PACS 80/20 stratified split loader
+│   └── splits/                        # Split index records
+│       └── pacs_sketch_seed6304.json
 │
-├── shared/                            # Shared PACS protocols for Tasks 2 & 3
-│   ├── pacs.py                        # Class names and domain mappings
-│   └── pacs_protocol.py               # Deterministic 80/20 train/val splits
-│
-├── task1/                             # Task 1 code
-│   ├── run_task1.py                   # Master script to run all Task 1 experiments
-│   ├── models.py                      # ResNet-50, ViT-B/16, OpenCLIP models
+├── task1/                             # Task 1: Inductive Biases
+│   ├── adain/                         # AdaIN style transfer network and functions
+│   ├── cue_conflicts.py               # Cue-conflict generation and SSIM edge filtering
 │   ├── data_utils.py                  # STL-10 500-sample test loader
-│   ├── transforms.py                  # Grayscale, hue rotation, translation, patch shuffle
-│   ├── cue_conflicts.py               # AdaIN style transfer and rejection filters
-│   └── evaluate.py                    # Shape bias, consistency, and cosine stability
+│   ├── evaluate.py                    # Shape bias, consistency, and plotting
+│   ├── models.py                      # ResNet-50, ViT-B/16, OpenCLIP models
+│   ├── run_task1.py                   # End-to-end execution pipeline
+│   ├── transforms.py                  # Color, translation, patch shuffle transforms
+│   ├── results/                       # Machine-readable output
+│   │   └── task1_results.json
+│   └── README.md
 │
-├── task2/                             # Task 2 code
-│   ├── train.py                       # Training pipeline for UDA models
-│   ├── evaluate_final.py              # Evaluation script on Sketch
-│   ├── configs/                       # Configuration files (source_only, dan, dann, cdan)
-│   ├── methods/                       # UDA loss implementations
-│   ├── models/                        # ResNet-18 backbone and domain discriminator
-│   └── evaluation/                    # Domain separability and class analysis
+├── task2/                             # Task 2: Unsupervised Domain Adaptation
+│   ├── configs/                       # Hyperparameter configurations (base, source_only, dan, dann, cdan)
+│   ├── evaluation/                    # Domain separability and class analysis
+│   ├── methods/                       # UDA loss implementations (ERM, DAN, DANN, CDAN)
+│   ├── models/                        # Pretrained ResNet-18 and domain discriminator
+│   ├── train.py                       # Training pipeline
+│   ├── evaluate_final.py              # Evaluation script on Sketch target
+│   ├── run_task2.py                   # Master runner script
+│   ├── results/                       # Machine-readable output
+│   │   └── task2_results.json
+│   └── README.md
 │
-├── task3/                             # Task 3 code
-│   ├── train.py                       # Training pipeline for DG models
-│   ├── evaluate_sketch.py             # Evaluation script on unseen Sketch
-│   ├── configs/                       # Configuration files (erm, dan_dg, sam)
+├── task3/                             # Task 3: Domain Generalization
+│   ├── configs/                       # Configuration files (base, erm, dan_dg, sam_rho_*)
+│   ├── evaluation/                    # Source domain separability and sharpness proxy
 │   ├── methods/                       # DG methods (ERM, DAN-DG, SAM)
-│   ├── models/                        # ResNet-18 backbone
-│   └── evaluation/                    # Source domain separability and sharpness proxy
+│   ├── models/                        # ResNet-18 backbone and classifier head
+│   ├── train.py                       # DG training script
+│   ├── evaluate_sketch.py             # Evaluation script on unseen Sketch
+│   ├── results/                       # Machine-readable output
+│   │   └── task3_main_results.json
+│   └── README.md
 │
-├── task4/                             # Task 4 code
-│   ├── train.py                       # Training script for Vanilla, GCSC, PROSER
-│   ├── evaluate_osr.py                # Evaluation on Near, Far, All unknowns
+├── task4/                             # Task 4: Open-Set Recognition
 │   ├── configs/                       # Configuration files (vanilla, gcsc, proser)
-│   ├── data/                          # CIFAR-10 and CIFAR-100 loaders
-│   ├── models/                        # CIFAR ResNet-18 model
-│   ├── scores/                        # MSP, MLS, Energy, Mahalanobis scorers
-│   └── evaluation/                    # AUROC, FPR@95TPR, failure analysis
+│   ├── data/                          # CIFAR-10 and CIFAR-100 unknown loaders
+│   ├── evaluation/                    # AUROC and FPR-at-95%-TPR evaluation routines
+│   ├── methods/                       # Vanilla, GCSC, and PROSER implementations
+│   ├── models/                        # CIFAR-adapted ResNet-18
+│   ├── scores/                        # MSP, MLS, Energy, Mahalanobis, and PROSER scorers
+│   ├── train.py                       # OSR training script
+│   ├── evaluate_osr.py                # Evaluation on Near, Far, and All unknowns
+│   ├── results/                       # Machine-readable output
+│   │   └── task4_results.json
+│   └── README.md
 │
-├── results/                           # Saved JSON result files
-│   ├── task1_results.json
-│   ├── task2_results.json
-│   ├── task3_main_results.json
-│   └── task4_results.json
+├── report/                            # LaTeX Report
+│   ├── report.tex                     # NeurIPS report source
+│   ├── report_skeleton.tex            # Alternative report entrypoint
+│   └── neurips_2026.sty               # NeurIPS LaTeX stylesheet
 │
-├── figures/                           # Generated figures embedded in report
-│   ├── task1/
-│   ├── task2/
-│   ├── task3/
-│   └── task4/
-│
-└── Task[1-4]_*.ipynb                  # Standalone Jupyter Notebooks
+└── figures/                           # Generated figures embedded in report
+    ├── task1/
+    ├── task2/
+    ├── task3/
+    └── task4/
 ```
 
 ---
@@ -127,50 +138,57 @@ pip install -r requirements.txt
 
 ## Reproduction Instructions
 
-Each task can be executed directly via Python scripts or through the corresponding Jupyter Notebook.
+Each task can be executed directly via command-line Python scripts:
 
 ### Task 1: Inductive Biases
 ```bash
-python task1/run_task1.py
-# Or run Task1_Inductive_Biases.ipynb
+python -m task1.run_task1
 ```
-Outputs are saved to `results/task1_results.json` and `figures/task1/`.
+Outputs are saved to `task1/results/task1_results.json` and `figures/task1/`.
 
 ### Task 2: Domain Adaptation
 ```bash
-# Train models
-python task2/train.py
+# Train individual models
+python -m task2.train --method source_only --checkpoint checkpoints/pacs_erm_baseline.pt
+python -m task2.train --method dan --lambda_mmd 1.0 --checkpoint checkpoints/pacs_dan.pt
+python -m task2.train --method dann --checkpoint checkpoints/pacs_dann.pt
+python -m task2.train --method cdan --checkpoint checkpoints/pacs_cdan.pt
 
-# Evaluate on Sketch
-python task2/evaluate_final.py
-# Or run Task2_Domain_Adaptation.ipynb
+# Evaluate on Sketch target
+python -m task2.evaluate_final
+
+# Or run the complete automated pipeline:
+python -m task2.run_task2
 ```
-Outputs are saved to `results/task2_results.json` and `figures/task2/`.
+Outputs are saved to `task2/results/task2_results.json` and `figures/task2/`.
 
 ### Task 3: Domain Generalization
 ```bash
 # Train models on source domains only
-python task3/train.py
+python -m task3.train --config task3/configs/erm.yaml --checkpoint checkpoints/pacs_erm_baseline.pt
+python -m task3.train --config task3/configs/dan_dg.yaml --checkpoint checkpoints/task3_DAN-DG.pt
+python -m task3.train --config task3/configs/base.yaml --checkpoint checkpoints/task3_SAM.pt
+
+# SAM perturbation study
+python -m task3.train --config task3/configs/sam_rho_0.01.yaml --checkpoint checkpoints/task3_SAM_rho0.01.pt
+python -m task3.train --config task3/configs/sam_rho_0.1.yaml --checkpoint checkpoints/task3_SAM_rho0.1.pt
 
 # Evaluate on unseen Sketch
-python task3/evaluate_sketch.py
-# Or run Task3_Domain_Generalization.ipynb
+python -m task3.evaluate_sketch
 ```
-Outputs are saved to `results/task3_main_results.json` and `figures/task3/`.
+Outputs are saved to `task3/results/task3_main_results.json` and `figures/task3/`.
 
 ### Task 4: Open-Set Recognition
 ```bash
 # Train models on CIFAR-10
-python task4/train.py
+python -m task4.train --config task4/configs/vanilla.yaml
+python -m task4.train --config task4/configs/gcsc.yaml
+python -m task4.train --config task4/configs/proser.yaml
 
 # Evaluate novelty scores and models on unknowns
-python task4/evaluate_osr.py
-
-# Generate failure plots and score distributions
-python generate_task4_artifacts.py
-# Or run Task4_Open_Set_Recognition.ipynb
+python -m task4.evaluate_osr
 ```
-Outputs are saved to `results/task4_results.json` and `figures/task4/`.
+Outputs are saved to `task4/results/task4_results.json` and `figures/task4/`.
 
 ---
 

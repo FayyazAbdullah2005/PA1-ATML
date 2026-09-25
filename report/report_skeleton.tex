@@ -14,9 +14,10 @@
 \usepackage{microtype}      % microtypography
 \usepackage{xcolor}         % colors
 \usepackage{graphicx}       % images
+\graphicspath{{../figures/}{../}{figures/}}
 % Fallback macro: embeds real image if file exists, or renders placeholder box if pending
 \newcommand{\safeincludegraphics}[2][]{%
-  \IfFileExists{#2}{\includegraphics[#1]{#2}}{\fbox{\parbox[c][3.2cm][c]{\linewidth}{\centering \small \texttt{[Figure pending generation: #2]}}}}%
+  \IfFileExists{#2}{\includegraphics[#1]{#2}}{\IfFileExists{../#2}{\includegraphics[#1]{../#2}}{\fbox{\parbox[c][3.2cm][c]{\linewidth}{\centering \small \texttt{[Figure pending generation: #2]}}}}}%
 }
 \usepackage{amsmath}        % math symbols
 \usepackage{subcaption}     % subfigures
@@ -44,7 +45,7 @@ Standard supervised learning generally assumes that training and test data are d
 \section{Introduction and Research Questions}
 \label{sec:introduction}
 
-Across the four tasks, this paper investigates the following core research questions:
+Standard supervised learning assumes that training and test distributions are identical and share the same label space. In real-world deployment, models encounter appearance shifts across domains and inputs from novel classes. This paper evaluates how representations behave under these distribution shifts across four settings: inductive biases, unsupervised domain adaptation, domain generalization, and open-set recognition. Across the four tasks, this paper investigates the following core research questions:
 \begin{enumerate}
     \item \textbf{Representations (Task 1):} How do convolutional networks and Vision Transformers differ in their reliance on shape, texture, color, and spatial layout?
     \item \textbf{Domain Adaptation (Task 2):} Does aligning feature distributions with an unlabeled target domain improve target recognition, or can it induce negative transfer?
@@ -57,7 +58,7 @@ Across the four tasks, this paper investigates the following core research quest
 \label{sec:task1}
 
 \subsection{Methodology}
-Since the three models have shown high accuracies on large datasets (e.g., ImageNet), we expect to observe high scores on other similar datasets. We measure performance using Top-1 Accuracy, Macro-F1, and Mean Max Confidence. To evaluate the three different models (ResNet-50, ViT-B/16, and OpenCLIP), the STL-10 dataset was used with an 80/20 training/validation split and a seed of 6304. For the three models, the following backbones were frozen and used:
+To evaluate how architectural choices affect feature representations, we assess the inductive biases of convolutional networks and Vision Transformers under controlled shape, texture, color, and spatial perturbations. Since the three models have shown high accuracies on large datasets (e.g., ImageNet), we expect to observe high scores on other similar datasets. We measure performance using Top-1 Accuracy, Macro-F1, and Mean Max Confidence. To evaluate the three different models (ResNet-50, ViT-B/16, and OpenCLIP), the STL-10 dataset was used with an 80/20 training/validation split and a seed of 6304. For the three models, the following backbones were frozen and used:
 \begin{enumerate}
     \item torchvision ResNet-50 with \texttt{ResNet50\_Weights.IMAGENET1K\_V2}
     \item torchvision ViT-B/16 with \texttt{ViT\_B\_16\_Weights.IMAGENET1K\_V1}
@@ -115,7 +116,7 @@ The results show high accuracies for all three models ($>95\%$) with ViT having 
 \end{table}
 The results show a mild drop in performance for each model in accuracy and consistency scores. The results are consistent with our original hypothesis with the exception of OpenCLIP. The results suggest that OpenCLIP is the most susceptible to Hue rotation as it showed the largest drops in accuracy ($-3.40\%$ probe, $-3.20\%$ zero-shot) and consistency scores ($90.40\%$ zero-shot). An interpretation of these results is that rotating hue alters the color patterns that OpenCLIP's text and image embeddings rely on, which causes the top-1 prediction to change.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.48\linewidth}
         \centering
@@ -150,16 +151,16 @@ The results show a mild drop in performance for each model in accuracy and consi
     \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \safeincludegraphics[width=0.9\linewidth]{figures/task1/cue_conflict_failures.png}
+    \safeincludegraphics[width=0.72\linewidth]{figures/task1/cue_conflict_failures.png}
     \caption{\textbf{Qualitative Cue-Conflict Predictions}: Representative examples highlighting model agreements, disagreements (shape preference vs. texture preference), and third-class failure modes.}
     \label{fig:task1_conflict_cases}
 \end{figure}
 For cue conflicts, the results show that ResNet-50 exhibits relatively lower shape bias ($78.81\%$) compared to OpenCLIP Probe ($90.80\%$) and ViT ($94.22\%$), choosing texture 32 times. ViT shows the highest coverage out of all models at $78.64\%$ followed by OpenCLIP Probe ($74.09\%$) and then ResNet-50 ($68.64\%$), with OpenCLIP Zero-Shot displaying the lowest coverage ($61.36\%$) and lowest shape bias ($76.30\%$). These results are consistent with our original hypothesis and show that OpenCLIP Zero-Shot displays the highest confusion ($N_{\text{other}}=85$) when predicting labels for cue-conflict images. The reason for these results is that CNNs do in fact have a higher texture bias due to local convolutions, while the self-attention mechanism allows ViT to learn global boundaries better. Furthermore, OpenCLIP Probe also exhibits high shape bias due to its Vision Transformer backbone; the lower shape bias and coverage in Zero-Shot can be explained by the models' high confusion when textures conflict with text prompt semantics, as illustrated in Figure~\ref{fig:task1_conflict_cases}.
 
 \paragraph{Spatial Invariance: Translation vs. Patch Permutation}
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.48\linewidth}
         \centering
@@ -195,9 +196,9 @@ The results show near-zero changes in accuracy and prediction consistency for al
     \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \safeincludegraphics[width=0.85\linewidth]{figures/task1/patch_shuffle_examples.png}
+    \safeincludegraphics[width=0.72\linewidth]{figures/task1/patch_shuffle_examples.png}
     \caption{\textbf{Patch-Shuffled Visualizations and Model Predictions}: Examples showing surviving local evidence vs. destroyed global spatial arrangement.}
     \label{fig:task1_patch_examples}
 \end{figure}
@@ -219,7 +220,7 @@ For patch shuffling, the results in Table~\ref{tab:task1_patch_shuffle} show dro
     \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.32\linewidth}
         \centering
@@ -252,13 +253,13 @@ The results show that all interventions altered representations to varying degre
 \label{sec:task2}
 
 \subsection{Methodology}
-For our Unsupervised Domain Adaptation experiments, we made use of the PACS dataset, which consists of seven classes across four domains (Painting, Art, Cartoon, Sketch). We used Sketch as our unlabeled target domain. For each source domain, we used an 80/20 training/validation split with a seed of 6304.
+Unsupervised Domain Adaptation (UDA) addresses the scenario where a model is trained on labeled source domains and must adapt to an unlabeled target domain with differing visual statistics. For our Unsupervised Domain Adaptation experiments, we made use of the PACS dataset, which consists of seven classes across four domains (Photo, Art Painting, Cartoon, Sketch). We used Sketch as our unlabeled target domain. For each source domain, we used an 80/20 training/validation split with a seed of 6304.
 
 We evaluated four distinct approaches: Source-Only (ERM), Mathematical Alignment using Deep Adaptation Network (DAN), Adversarial Alignment using Domain Adversarial Neural Network (DANN), and Class-Aware Adversarial Alignment using Conditional DANN (CDAN).
 
 For our model, we used a fine-tuned ResNet-18 (\texttt{IMAGENET1K\_V1}) with a re-trained seven-class linear classifier head. The images were resized to $256 \times 256$ with a random $224 \times 224$ crop during training and a $224 \times 224$ center-crop for validation. We froze all BatchNorm running means and variances at their ImageNet values. We used the AdamW optimizer with a learning rate of $10^{-4}$ and weight decay of $10^{-4}$, stopping after five epochs without improvement in the mean source-validation macro-F1.
 
-In order to perform DAN-style alignment, we added a 512-dimensional Maximum Mean Discrepancy (MMD) penalty to the feature space: $L_{DAN} = L_{\text{cls}} + \lambda_{\text{MMD}} \left\| E_s[\phi(F(x_s))] - E_t[\phi(F(x_t))] \right\|_2$, with $\lambda_{\text{MMD}}=1$ and a sum of three RBF kernels whose bandwidths were 0.5, 1, and 2 times the median pairwise squared feature distance in the current combined batch.
+In order to perform DAN-style alignment, we added a 512-dimensional Maximum Mean Discrepancy (MMD) penalty to the feature space: $L_{\text{DAN}} = L_{\text{cls}} + \lambda_{\text{MMD}} \text{MMD}^2(F(X_s), F(X_t))$, with $\lambda_{\text{MMD}}=1$ and a sum of three RBF kernels whose bandwidths were 0.5, 1, and 2 times the median pairwise squared feature distance in the current combined batch.
 
 Next, a 256-unit discriminator with a dropout of 0.5, ReLU activation, and a two-class output layer was attached with the standard schedule $\alpha(p) = \frac{2}{1 + \exp(-10p)} - 1$.
 
@@ -269,7 +270,7 @@ The source-validation, target accuracy, macro-F1 scores, and domain separability
 \subsection{Results}
 
 \paragraph{Training Dynamics and Convergence}
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.48\linewidth}
         \centering
@@ -327,14 +328,13 @@ During training, the source classification loss for all four methods decreases s
     \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \safeincludegraphics[width=0.9\linewidth]{figures/task2/confusion_failures.png}
+    \safeincludegraphics[width=0.72\linewidth]{figures/task2/confusion_failures.png}
     \caption{\textbf{Target Error Analysis on Sketch}: Dominant confusions and failure cases illustrating semantic preservation vs. negative transfer across methods.}
     \label{fig:task2_confusions}
 \end{figure}
-While all four approaches yield high mean accuracies on the source domains ($93.46\%\text{--}94.35\%$), all three adaptation methods suffered negative transfer relative to Source-only ($72.74\%$), with target performance differing greatly depending on the alignment strategy (Table~\ref{tab:task2_main_results}). Adversarial alignments (DANN and CDAN) resulted in catastrophic drops in target accuracy ($19.65\%$ and $2.04\%$) alongside near-perfect domain separability scores ($100.00\%$). Even for DAN, where domain separability was successfully reduced to $90.93\%$, target accuracy degraded by $-8.88\%$; therefore, a link between lower domain separability and higher target accuracy could not be established. Table~\ref{tab:task2_per_class} and Figure~\ref{fig:task2_confusions} provide further insight into these failures: adversarial methods suffered mode collapse, with DANN predicting `dog' $100\%$ of the time and CDAN predicting `house' $100\%$ of the time. While the per-class target accuracies for DAN were much more uniform across most categories, it completely failed to predict the `person' class ($0.00\%$). It is therefore important to analyse these aggregate metrics within the context of the class-specific results since they can conceal vital weaknesses of the approach, such as DAN's failure to predict the `person' class.
-
+While all four approaches yield high mean accuracies on the source domains ($93.46\%\text{--}94.35\%$), all three adaptation methods suffered negative transfer relative to Source-only ($72.74\%$), with target performance differing greatly depending on the alignment strategy (Table~\ref{tab:task2_main_results}). Adversarial alignments (DANN and CDAN) resulted in catastrophic drops in target accuracy ($19.65\%$ and $2.04\%$) alongside near-perfect domain separability scores ($100.00\%$). Even for DAN, where domain separability was successfully reduced to $90.93\%$, target accuracy degraded by $-8.88\%$; therefore, a link between lower domain separability and higher target accuracy could not be established. Table~\ref{tab:task2_per_class} and Figure~\ref{fig:task2_confusions} provide further insight into these failures: adversarial methods suffered mode collapse, with DANN predicting `dog' $100\%$ of the time and CDAN predicting `house' $100\%$ of the time. While the per-class target accuracies for DAN were much more uniform across most categories, it completely failed to predict the `person' class ($0.00\%$). It is therefore important to analyze these aggregate metrics within the context of the class-specific results since they can conceal vital weaknesses of the approach, such as DAN's failure to predict the `person' class. While the ROC and loss graphs indicated that  the model converged correctly these benchmarks show
 
 \paragraph{Controlled Alignment Strength Study}
 \begin{table}[H]
@@ -360,7 +360,7 @@ Increasing alignment pressure $\lambda_{\text{MMD}}$ from $0.1 \rightarrow 10.0$
 \label{sec:task3}
 
 \subsection{Methodology}
-Under the Domain Generalization setup, the target domain (Sketch) was strictly unseen during all stages of training, validation, model selection, and hyperparameter tuning. We reused the shared PACS splits with an 80/20 train/validation split (seed 6304), fine-tuning a ResNet-18 model initialized with ImageNet weights and keeping BatchNorm running statistics frozen.
+Domain Generalization (DG) evaluates whether a model trained on multiple source domains can generalize to an unseen target domain without receiving any target data during training. Under the Domain Generalization setup, the target domain (Sketch) was strictly unseen during all stages of training, validation, model selection, and hyperparameter tuning. We reused the shared PACS splits with an 80/20 train/validation split (seed 6304), fine-tuning a ResNet-18 model initialized with ImageNet weights and keeping BatchNorm running statistics frozen.
 
 For Domain Generalization, we evaluated two distinct paradigms: Pairwise Source-Domain Alignment and Parameter-Space Stability.
 
@@ -414,7 +414,7 @@ We also used the same standardized local sharpness proxy for all three models, m
     }
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.48\linewidth}
         \centering
@@ -470,7 +470,7 @@ Regarding parameter stability, Figure~\ref{fig:task3_diagnostics}(a) shows stead
         \bottomrule
     \end{tabular}
 \end{table}
-Analyzing the class-based accuracies of the approaches reveals noteworthy details which could not be expressed by aggregate metrics alone (Table~\ref{tab:task3_per_class}). While DAN-DG has a lower overall accuracy compared to DAN, its accuracies are more uniform. DAN-DG attained a 90.62\% accuracy compared to 0\% for DAN. Though it is important to note that while DAN-DG had no absolute class failures it did perform weakly on some classes such as Giraffe and Horse. Access to unlabeled sketches did not result in superior performance to target-free methods. Both SAM and ERM outperformed target-aware DAN significantly and access to unlabelled sketches resulted in only a 2\% increase in accuracy.
+Analyzing the class-based accuracies of the approaches reveals noteworthy details which could not be expressed by aggregate metrics alone (Table~\ref{tab:task3_per_class}). While DAN-DG has a lower overall accuracy compared to DAN, its accuracies are more uniform. DAN-DG attained a 90.62\% accuracy compared to 0\% for DAN. Though it is important to note that while DAN-DG had no absolute class failures it did perform weakly on some classes such as Giraffe and Horse. Access to unlabeled sketches did not result in superior performance to target-free methods. Both SAM and ERM outperformed target-aware DAN significantly and access to unlabeled sketches resulted in only a 2\% increase in accuracy.
 
 A lower perturbation radius of $\rho = 0.01$ resulted in higher sketch accuracies and F1-scores, while a radius of $0.05$ gave the best source accuracy (Table~\ref{tab:task3_design_study}). Interestingly, the source accuracy decreased when the radius was increased further to $0.1$. The results indicate an inverse relationship between perturbation radius and sharpness proxy as well as perturbation radius and sketch accuracy/F1 score, but no clear effect on source accuracy.
 
@@ -481,7 +481,7 @@ A lower perturbation radius of $\rho = 0.01$ resulted in higher sketch accuracie
 \label{sec:task4}
 
 \subsection{Methodology}
-To evaluate how classifiers handle out-of-distribution inputs, we used CIFAR-10 (10 classes with a stratified 90/10 train/validation split using seed 6304 and the official 10,000-image test set) to represent the known classes. To construct semantic unknowns, we extracted two disjoint 800-image subsets from the CIFAR-100 test set:
+Open-Set Recognition (OSR) addresses the problem of maintaining high classification accuracy on known classes while reliably detecting and rejecting inputs from previously unseen categories. To evaluate how classifiers handle out-of-distribution inputs, we used CIFAR-10 (10 classes with a stratified 90/10 train/validation split using seed 6304 and the official 10,000-image test set) to represent the known classes. To construct semantic unknowns, we extracted two disjoint 800-image subsets from the CIFAR-100 test set:
 \begin{enumerate}
     \item \textbf{Near Unknowns} (semantically similar categories): \texttt{bus}, \texttt{pickup\_truck}, \texttt{motorcycle}, \texttt{tractor}, \texttt{wolf}, \texttt{fox}, \texttt{leopard}, and \texttt{camel}.
     \item \textbf{Far Unknowns} (semantically distant categories): \texttt{bottle}, \texttt{bowl}, \texttt{chair}, \texttt{clock}, \texttt{keyboard}, \texttt{mushroom}, \texttt{sunflower}, and \texttt{wardrobe}.
@@ -500,8 +500,8 @@ Decision thresholds $\tau$ were calibrated at the $95^{\text{th}}$ percentile of
 
 Beyond post-hoc scoring, we evaluated two trained-model paradigms:
 \begin{itemize}
-    \item \textbf{GCSC (Good Closed-Set Classifier):} Trains the modified ResNet-18 with aggressive RandAugment (2 operations, magnitude 9) under the vanilla recipe to test if stronger closed-set representation alone improves open-set detection.
-    \item \textbf{PROSER (Learning Placeholders):} Adds dummy classifier prototypes and dummy data placeholders generated via feature mixup between second-most-likely classes to explicitly carve out an unknown decision boundary. The backbone was fine-tuned for 50 epochs using SGD with learning rate $10^{-3}$, momentum 0.9, weight decay $5 \times 10^{-4}$, and cosine decay.
+    \item \textbf{GCSC (Good Closed-Set Classifier):} This method trains the modified ResNet-18 with aggressive RandAugment (2 operations, magnitude 9) under the vanilla recipe to test if stronger closed-set representation alone improves open-set detection.
+    \item \textbf{PROSER (Learning Placeholders):} This method adds dummy classifier prototypes and dummy data placeholders generated via feature mixup between second-most-likely classes to explicitly carve out an unknown decision boundary. The backbone was fine-tuned for 50 epochs using SGD with learning rate $10^{-3}$, momentum 0.9, weight decay $5 \times 10^{-4}$, and cosine decay.
 \end{itemize}
 
 Models were evaluated on Closed-Set Accuracy (CSA), AUROC across Near, Far, and All Unknowns, and false positive rejection rates at $\tau$. Finally, for qualitative failure analysis, unknown images accepted under the vanilla MLS threshold ($u_{\text{MLS}}(x) \le \tau$) were extracted to inspect semantic overlap and feature aliasing.
@@ -527,7 +527,7 @@ Models were evaluated on Closed-Set Accuracy (CSA), AUROC across Near, Far, and 
     \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.48\linewidth}
         \centering
@@ -569,7 +569,7 @@ Visualizing the score distributions (Figure~\ref{fig:task4_scoring_analysis}) sh
     \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.48\linewidth}
         \centering

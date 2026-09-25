@@ -50,4 +50,4 @@ python -m task2.train --method cdan --checkpoint checkpoints/pacs_cdan.pt
 ```bash
 python -m task2.evaluate_final
 ```
-Results will be exported to `results/task2_results.json` and figures to `figures/task2/`.
+Results will be exported to `task2/results/task2_results.json` and figures to `figures/task2/`.

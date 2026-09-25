@@ -7,10 +7,15 @@ import numpy as np
 from PIL import Image
 from tqdm import tqdm
 
-# Add models/adain to sys.path
+# Add task1/adain to sys.path
+sys.path.append(os.path.abspath('task1/adain'))
 sys.path.append(os.path.abspath('models/adain'))
-import net
-import function
+try:
+    import task1.adain.net as net
+    import task1.adain.function as function
+except ImportError:
+    import net
+    import function
 
 CLASS_PAIRS = [
     (0, 1), # (airplane, bird)
@@ -63,7 +68,11 @@ def compute_sobel_edge_correlation(img1, img2):
     return (torch.dot(e1_norm, e2_norm) / denom).item()
 
 class AdaINGenerator:
-    def __init__(self, vgg_path='models/adain/vgg_normalised.pth', decoder_path='models/adain/decoder.pth', device='cpu'):
+    def __init__(self, vgg_path=None, decoder_path=None, device='cpu'):
+        if vgg_path is None:
+            vgg_path = 'task1/adain/vgg_normalised.pth' if os.path.exists('task1/adain/vgg_normalised.pth') else 'models/adain/vgg_normalised.pth'
+        if decoder_path is None:
+            decoder_path = 'task1/adain/decoder.pth' if os.path.exists('task1/adain/decoder.pth') else 'models/adain/decoder.pth'
         self.device = device
         self.vgg = net.vgg
         self.vgg.load_state_dict(torch.load(vgg_path, map_location=device))
