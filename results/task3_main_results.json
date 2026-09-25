@@ -1,0 +1,112 @@
+[
+  {
+    "Method":"ERM",
+    "Photo Acc":95.8083832335,
+    "Art Acc":90.487804878,
+    "Cartoon Acc":95.0959488273,
+    "Mean Source Acc":93.7973789796,
+    "Worst Source Acc":90.487804878,
+    "Sketch Target Acc":72.7411555103,
+    "Sketch Target F1":0.7522691311,
+    "Domain Sep Score":87.0431893688,
+    "Sharpness Proxy":0.7058463097,
+    "Target Class Accs":{
+      "0":57.7720207254,
+      "1":83.3783783784,
+      "2":57.9017264276,
+      "3":96.875,
+      "4":71.0784313725,
+      "5":98.75,
+      "6":69.375
+    },
+    "Delta Sketch Acc":0.0
+  },
+  {
+    "Method":"DAN-DG",
+    "Photo Acc":96.1077844311,
+    "Art Acc":92.1951219512,
+    "Cartoon Acc":94.0298507463,
+    "Mean Source Acc":94.1109190429,
+    "Worst Source Acc":92.1951219512,
+    "Sketch Target Acc":61.847798422,
+    "Sketch Target F1":0.6472271897,
+    "Domain Sep Score":73.0897009967,
+    "Sharpness Proxy":0.2714428008,
+    "Target Class Accs":{
+      "0":63.6010362694,
+      "1":81.7567567568,
+      "2":30.6772908367,
+      "3":82.8947368421,
+      "4":47.0588235294,
+      "5":87.5,
+      "6":90.625
+    },
+    "Delta Sketch Acc":-10.8933570883
+  },
+  {
+    "Method":"SAM",
+    "Photo Acc":97.6047904192,
+    "Art Acc":92.4390243902,
+    "Cartoon Acc":95.7356076759,
+    "Mean Source Acc":95.2598074951,
+    "Worst Source Acc":92.4390243902,
+    "Sketch Target Acc":72.0030542123,
+    "Sketch Target F1":0.7249874412,
+    "Domain Sep Score":88.7043189369,
+    "Sharpness Proxy":0.1174976975,
+    "Target Class Accs":{
+      "0":28.4974093264,
+      "1":94.5945945946,
+      "2":63.213811421,
+      "3":87.1710526316,
+      "4":87.0098039216,
+      "5":76.25,
+      "6":82.5
+    },
+    "Delta Sketch Acc":-0.738101298
+  },
+  {
+    "Method":"SAM (rho=0.01)",
+    "Photo Acc":97.9041916168,
+    "Art Acc":91.7073170732,
+    "Cartoon Acc":94.6695095949,
+    "Mean Source Acc":94.7603394283,
+    "Worst Source Acc":91.7073170732,
+    "Sketch Target Acc":75.7444642403,
+    "Sketch Target F1":0.7739910698,
+    "Domain Sep Score":88.7043189369,
+    "Sharpness Proxy":0.169469513,
+    "Target Class Accs":{
+      "0":49.481865285,
+      "1":93.2432432432,
+      "2":64.01062417,
+      "3":90.625,
+      "4":81.3725490196,
+      "5":85.0,
+      "6":86.875
+    },
+    "Delta Sketch Acc":3.00330873
+  },
+  {
+    "Method":"SAM (rho=0.1)",
+    "Photo Acc":96.1077844311,
+    "Art Acc":89.0243902439,
+    "Cartoon Acc":95.9488272921,
+    "Mean Source Acc":93.6936673224,
+    "Worst Source Acc":89.0243902439,
+    "Sketch Target Acc":62.9931280224,
+    "Sketch Target F1":0.6130163445,
+    "Domain Sep Score":82.3920265781,
+    "Sharpness Proxy":0.1036100388,
+    "Target Class Accs":{
+      "0":36.9170984456,
+      "1":93.9189189189,
+      "2":47.4103585657,
+      "3":78.9473684211,
+      "4":63.8480392157,
+      "5":40.0,
+      "6":65.625
+    },
+    "Delta Sketch Acc":-9.7480274879
+  }
+]

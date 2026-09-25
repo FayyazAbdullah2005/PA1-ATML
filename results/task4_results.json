@@ -1,0 +1,79 @@
+[
+  {
+    "Model":"VANILLA",
+    "Score":"MSP",
+    "CSA (%)":94.8000013828,
+    "AUROC Near":80.84398125,
+    "AUROC Far":89.317425,
+    "AUROC All":85.080703125,
+    "FPR@95TPR (%)":5.74,
+    "Near Rej. (%)":29.375,
+    "Far Rej. (%)":47.625
+  },
+  {
+    "Model":"VANILLA",
+    "Score":"MLS",
+    "CSA (%)":94.8000013828,
+    "AUROC Near":79.3581875,
+    "AUROC Far":88.4703125,
+    "AUROC All":83.91425,
+    "FPR@95TPR (%)":5.4,
+    "Near Rej. (%)":32.875,
+    "Far Rej. (%)":54.25
+  },
+  {
+    "Model":"VANILLA",
+    "Score":"Energy",
+    "CSA (%)":94.8000013828,
+    "AUROC Near":79.35343125,
+    "AUROC Far":88.4904125,
+    "AUROC All":83.921921875,
+    "FPR@95TPR (%)":5.41,
+    "Near Rej. (%)":33.375,
+    "Far Rej. (%)":54.0
+  },
+  {
+    "Model":"VANILLA",
+    "Score":"Mahalanobis",
+    "CSA (%)":94.8000013828,
+    "AUROC Near":77.74065625,
+    "AUROC Far":91.3272625,
+    "AUROC All":84.533959375,
+    "FPR@95TPR (%)":5.57,
+    "Near Rej. (%)":30.0,
+    "Far Rej. (%)":53.875
+  },
+  {
+    "Model":"GCSC",
+    "Score":"MLS",
+    "CSA (%)":95.3700006008,
+    "AUROC Near":81.82083125,
+    "AUROC Far":90.39681875,
+    "AUROC All":86.108825,
+    "FPR@95TPR (%)":5.35,
+    "Near Rej. (%)":37.0,
+    "Far Rej. (%)":61.125
+  },
+  {
+    "Model":"PROSER",
+    "Score":"MLS",
+    "CSA (%)":94.7099983692,
+    "AUROC Near":79.91774375,
+    "AUROC Far":87.41629375,
+    "AUROC All":83.66701875,
+    "FPR@95TPR (%)":5.06,
+    "Near Rej. (%)":30.75,
+    "Far Rej. (%)":49.375
+  },
+  {
+    "Model":"PROSER",
+    "Score":"PROSER",
+    "CSA (%)":94.7099983692,
+    "AUROC Near":74.7092375,
+    "AUROC Far":89.905675,
+    "AUROC All":82.30745625,
+    "FPR@95TPR (%)":5.18,
+    "Near Rej. (%)":28.625,
+    "Far Rej. (%)":56.375
+  }
+]

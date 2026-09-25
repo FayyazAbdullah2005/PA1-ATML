@@ -1,0 +1,6 @@
+method: "dan"
+description: "Deep Adaptation Network minimizing multi-kernel RBF Maximum Mean Discrepancy."
+checkpoint_name: "pacs_dan.pt"
+lambda_mmd: 1.0
+kernel_multipliers: [0.5, 1.0, 2.0]
+controlled_study_lambdas: [0.1, 1.0, 10.0]

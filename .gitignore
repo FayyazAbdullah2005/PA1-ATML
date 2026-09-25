@@ -1,0 +1,59 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C environments and virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Datasets (Do not commit raw datasets as per assignment rules)
+data/
+datasets/
+PACS/
+pacs/
+stl10_binary/
+cifar-10-batches-py/
+cifar-100-python/
+*.tar.gz
+*.zip
+
+# Deep learning checkpoints, weights, and caches
+checkpoints/
+weights/
+*.pt
+*.pth
+*.ckpt
+cache/
+*.npy
+*.npz
+
+# Logging and experiment tracking
+wandb/
+runs/
+tensorboard/
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc

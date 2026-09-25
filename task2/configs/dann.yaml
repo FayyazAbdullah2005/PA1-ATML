@@ -1,0 +1,6 @@
+method: "dann"
+description: "Domain-Adversarial Neural Network with binary discriminator and Gradient Reversal Layer."
+checkpoint_name: "pacs_dann.pt"
+hidden_dim: 256
+dropout: 0.5
+grad_clip_norm: 1.0

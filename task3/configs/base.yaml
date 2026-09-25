@@ -1,0 +1,6 @@
+epochs: 30
+patience: 5
+learning_rate: 1.0e-4
+weight_decay: 1.0e-4
+batch_size: 24  # 8 per source domain
+seed: 6304

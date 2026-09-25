@@ -1,0 +1,244 @@
+{
+  "main_results": {
+    "Source-only (ERM)": {
+      "source_val": {
+        "Photo": 95.80838323353294,
+        "Art": 90.48780487804878,
+        "Cartoon": 95.0959488272921
+      },
+      "mean_src_acc": 93.79737897962461,
+      "mean_src_f1": 0.937297604412986,
+      "target_acc": 72.74115551030796,
+      "target_f1": 0.7522691311008881,
+      "target_gain": 0.0,
+      "domain_separability": 99.58791208791209,
+      "per_class_target": {
+        "dog": 57.77202072538861,
+        "elephant": 83.37837837837839,
+        "giraffe": 57.90172642762285,
+        "guitar": 96.875,
+        "horse": 71.07843137254902,
+        "house": 98.75,
+        "person": 69.375
+      }
+    },
+    "DAN": {
+      "source_val": {
+        "Photo": 96.7065868263473,
+        "Art": 91.46341463414635,
+        "Cartoon": 94.88272921108742
+      },
+      "mean_src_acc": 94.35091022386037,
+      "mean_src_f1": 0.942000786058415,
+      "target_acc": 63.858488164927465,
+      "target_f1": 0.5604935222062646,
+      "target_gain": -8.882667345380497,
+      "domain_separability": 90.93406593406593,
+      "per_class_target": {
+        "dog": 50.906735751295344,
+        "elephant": 72.2972972972973,
+        "giraffe": 61.354581673306775,
+        "guitar": 84.375,
+        "horse": 64.4607843137255,
+        "house": 100.0,
+        "person": 0.0
+      }
+    },
+    "DANN": {
+      "source_val": {
+        "Photo": 96.10778443113772,
+        "Art": 91.70731707317074,
+        "Cartoon": 94.45628997867804
+      },
+      "mean_src_acc": 94.09046382766218,
+      "mean_src_f1": 0.9410475280299231,
+      "target_acc": 19.648765589208452,
+      "target_f1": 0.04692010818366913,
+      "target_gain": -53.09238992109951,
+      "domain_separability": 100.0,
+      "per_class_target": {
+        "dog": 100.0,
+        "elephant": 0.0,
+        "giraffe": 0.0,
+        "guitar": 0.0,
+        "horse": 0.0,
+        "house": 0.0,
+        "person": 0.0
+      }
+    },
+    "CDAN": {
+      "source_val": {
+        "Photo": 95.50898203592814,
+        "Art": 90.0,
+        "Cartoon": 94.88272921108742
+      },
+      "mean_src_acc": 93.46390374900518,
+      "mean_src_f1": 0.9335940426701511,
+      "target_acc": 2.0361415118350727,
+      "target_f1": 0.005701457435056837,
+      "target_gain": -70.7050139984729,
+      "domain_separability": 100.0,
+      "per_class_target": {
+        "dog": 0.0,
+        "elephant": 0.0,
+        "giraffe": 0.0,
+        "guitar": 0.0,
+        "horse": 0.0,
+        "house": 100.0,
+        "person": 0.0
+      }
+    }
+  },
+  "per_class_comparison": {
+    "DAN": {
+      "per_class_gains": {
+        "dog": -6.865284974093264,
+        "elephant": -11.08108108108108,
+        "giraffe": 3.452855245683928,
+        "guitar": -12.5,
+        "horse": -6.617647058823522,
+        "house": 1.25,
+        "person": -69.375
+      },
+      "best_improved": {
+        "class": "giraffe",
+        "gain": 3.452855245683928
+      },
+      "worst_degraded": {
+        "class": "person",
+        "gain": -69.375
+      }
+    },
+    "DANN": {
+      "per_class_gains": {
+        "dog": 42.22797927461139,
+        "elephant": -83.37837837837839,
+        "giraffe": -57.90172642762285,
+        "guitar": -96.875,
+        "horse": -71.07843137254902,
+        "house": -98.75,
+        "person": -69.375
+      },
+      "best_improved": {
+        "class": "dog",
+        "gain": 42.22797927461139
+      },
+      "worst_degraded": {
+        "class": "house",
+        "gain": -98.75
+      }
+    },
+    "CDAN": {
+      "per_class_gains": {
+        "dog": -57.77202072538861,
+        "elephant": -83.37837837837839,
+        "giraffe": -57.90172642762285,
+        "guitar": -96.875,
+        "horse": -71.07843137254902,
+        "house": 1.25,
+        "person": -69.375
+      },
+      "best_improved": {
+        "class": "house",
+        "gain": 1.25
+      },
+      "worst_degraded": {
+        "class": "guitar",
+        "gain": -96.875
+      }
+    }
+  },
+  "dominant_confusions": {
+    "Source-only (ERM)": [
+      {
+        "true_class": "giraffe",
+        "pred_class": "horse",
+        "count": 136
+      },
+      {
+        "true_class": "horse",
+        "pred_class": "dog",
+        "count": 136
+      },
+      {
+        "true_class": "dog",
+        "pred_class": "horse",
+        "count": 131
+      }
+    ],
+    "DAN": [
+      {
+        "true_class": "dog",
+        "pred_class": "person",
+        "count": 174
+      },
+      {
+        "true_class": "person",
+        "pred_class": "house",
+        "count": 160
+      },
+      {
+        "true_class": "giraffe",
+        "pred_class": "dog",
+        "count": 122
+      }
+    ],
+    "DANN": [
+      {
+        "true_class": "horse",
+        "pred_class": "dog",
+        "count": 816
+      },
+      {
+        "true_class": "giraffe",
+        "pred_class": "dog",
+        "count": 753
+      },
+      {
+        "true_class": "elephant",
+        "pred_class": "dog",
+        "count": 740
+      }
+    ],
+    "CDAN": [
+      {
+        "true_class": "horse",
+        "pred_class": "house",
+        "count": 816
+      },
+      {
+        "true_class": "dog",
+        "pred_class": "house",
+        "count": 772
+      },
+      {
+        "true_class": "giraffe",
+        "pred_class": "house",
+        "count": 753
+      }
+    ]
+  },
+  "controlled_study": {
+    "DAN (lambda=0.1)": {
+      "mean_src_acc": 94.79832471932728,
+      "mean_src_f1": 0.945311044271115,
+      "domain_sep": 98.07692307692307,
+      "target_acc": 71.90124713667599,
+      "target_f1": 0.7001806476174898
+    },
+    "DAN (lambda=1.0)": {
+      "mean_src_acc": 93.10319088278277,
+      "mean_src_f1": 0.934023076966119,
+      "domain_sep": 87.91208791208791,
+      "target_acc": 69.33061847798422,
+      "target_f1": 0.6343695730457474
+    },
+    "DAN (lambda=10.0)": {
+      "mean_src_acc": 90.50549273287633,
+      "mean_src_f1": 0.9020049707260572,
+      "domain_sep": 85.71428571428571,
+      "target_acc": 64.29116823619242,
+      "target_f1": 0.5757642424697754
+    }
+  }
+}

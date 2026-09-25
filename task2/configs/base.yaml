@@ -1,0 +1,22 @@
+dataset:
+  name: "PACS"
+  root: "data/PACS"
+  split_file: "shared/splits/pacs_sketch_seed6304.json"
+  source_domains: ["photo", "art_painting", "cartoon"]
+  target_domain: "sketch"
+  num_classes: 7
+  batch_size_per_source: 8
+  batch_size_target: 24
+
+training:
+  seed: 6304
+  max_epochs: 30
+  patience: 5
+  lr: 0.0001
+  weight_decay: 0.0001
+  optimizer: "AdamW"
+  grad_clip_norm: 1.0
+
+checkpoint_dir: "checkpoints"
+results_dir: "results"
+figures_dir: "figures/task2"

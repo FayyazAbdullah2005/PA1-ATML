@@ -1,0 +1,8 @@
+method: "cdan"
+description: "Conditional Domain Adaptation Network with multilinear conditioning g(x) = vec(f (x) p) / sqrt(d)."
+checkpoint_name: "pacs_cdan.pt"
+hidden_dim: 256
+dropout: 0.5
+feature_dim: 512
+num_classes: 7
+grad_clip_norm: 1.0

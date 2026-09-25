@@ -1,0 +1,187 @@
+{
+  "clean_metrics": {
+    "ResNet-50": {
+      "acc": 97.39999999999999,
+      "f1": 0.9740106313521739,
+      "conf": 0.9065026044845581
+    },
+    "ViT-B/16": {
+      "acc": 98.0,
+      "f1": 0.9799561706470769,
+      "conf": 0.971282958984375
+    },
+    "OpenCLIP ViT-B-32": {
+      "acc": 97.39999999999999,
+      "f1": 0.9739281536196838,
+      "conf": 0.1397010236978531
+    },
+    "OpenCLIP Zero-Shot": {
+      "acc": 68.2,
+      "f1": 0.6508724029906949,
+      "conf": 0.8977102637290955
+    }
+  },
+  "color_bias": {
+    "ResNet-50": {
+      "gray_delta": -2.3999999999999915,
+      "gray_cons": 96.8,
+      "hue_delta": -1.1999999999999886,
+      "hue_cons": 97.0
+    },
+    "ViT-B/16": {
+      "gray_delta": -1.6000000000000085,
+      "gray_cons": 96.8,
+      "hue_delta": -1.7999999999999972,
+      "hue_cons": 96.2
+    },
+    "OpenCLIP ViT-B-32": {
+      "gray_delta": -2.799999999999997,
+      "gray_cons": 95.39999999999999,
+      "hue_delta": -3.3999999999999915,
+      "hue_cons": 94.8
+    },
+    "OpenCLIP Zero-Shot": {
+      "gray_delta": -1.4000000000000057,
+      "gray_cons": 94.6,
+      "hue_delta": -3.200000000000003,
+      "hue_cons": 90.4
+    }
+  },
+  "shape_vs_texture": {
+    "ResNet-50": {
+      "n_shape": 119,
+      "n_texture": 32,
+      "n_other": 69,
+      "shape_bias": 78.80794701986756,
+      "coverage": 68.63636363636364
+    },
+    "ViT-B/16": {
+      "n_shape": 163,
+      "n_texture": 10,
+      "n_other": 47,
+      "shape_bias": 94.21965317919076,
+      "coverage": 78.63636363636364
+    },
+    "OpenCLIP ViT-B-32": {
+      "n_shape": 148,
+      "n_texture": 15,
+      "n_other": 57,
+      "shape_bias": 90.79754601226993,
+      "coverage": 74.0909090909091
+    },
+    "OpenCLIP Zero-Shot": {
+      "n_shape": 103,
+      "n_texture": 32,
+      "n_other": 85,
+      "shape_bias": 76.29629629629629,
+      "coverage": 61.36363636363637
+    }
+  },
+  "cue_conflict_counts": {
+    "accepted": 220,
+    "rejected": 25,
+    "valid": 220
+  },
+  "translation": {
+    "shifts": [
+      0,
+      8,
+      16,
+      32
+    ],
+    "accuracy": {
+      "ResNet-50": [
+        97.39999999999999,
+        97.55,
+        97.5,
+        96.89999999999999
+      ],
+      "ViT-B/16": [
+        98.0,
+        98.3,
+        97.80000000000001,
+        97.2
+      ],
+      "OpenCLIP ViT-B-32": [
+        97.39999999999999,
+        97.1,
+        97.1,
+        95.85
+      ],
+      "OpenCLIP Zero-Shot": [
+        68.2,
+        67.7,
+        68.10000000000001,
+        67.25
+      ]
+    },
+    "consistency": {
+      "ResNet-50": [
+        100.0,
+        99.3,
+        99.2,
+        98.44999999999999
+      ],
+      "ViT-B/16": [
+        100.0,
+        99.25,
+        99.6,
+        98.6
+      ],
+      "OpenCLIP ViT-B-32": [
+        100.0,
+        97.75,
+        97.2,
+        97.05
+      ],
+      "OpenCLIP Zero-Shot": [
+        100.0,
+        97.44999999999999,
+        96.39999999999999,
+        96.55
+      ]
+    }
+  },
+  "patch_shuffling": {
+    "ResNet-50": {
+      "shuf_acc": 91.4,
+      "delta_acc": -5.999999999999986,
+      "consistency": 92.0
+    },
+    "ViT-B/16": {
+      "shuf_acc": 90.8,
+      "delta_acc": -7.200000000000003,
+      "consistency": 91.0
+    },
+    "OpenCLIP ViT-B-32": {
+      "shuf_acc": 80.60000000000001,
+      "delta_acc": -16.799999999999983,
+      "consistency": 82.0
+    },
+    "OpenCLIP Zero-Shot": {
+      "shuf_acc": 55.400000000000006,
+      "delta_acc": -12.799999999999997,
+      "consistency": 74.4
+    }
+  },
+  "cosine_stability": {
+    "ResNet-50": {
+      "grayscale": 0.802850604057312,
+      "cue_conflict": 0.36514517664909363,
+      "translation_32": 0.937736451625824,
+      "patch_shuffle": 0.6953446865081787
+    },
+    "ViT-B/16": {
+      "grayscale": 0.7404763698577881,
+      "cue_conflict": 0.37014609575271606,
+      "translation_32": 0.9473018050193787,
+      "patch_shuffle": 0.6333379745483398
+    },
+    "OpenCLIP ViT-B-32": {
+      "grayscale": 0.8891096115112305,
+      "cue_conflict": 0.7521664500236511,
+      "translation_32": 0.9596552848815918,
+      "patch_shuffle": 0.7559768557548523
+    }
+  }
+}
